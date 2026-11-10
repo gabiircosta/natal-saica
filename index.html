@@ -44,7 +44,7 @@ h3.sec{font-family:Georgia,serif;font-size:1.5rem;margin:30px 0 4px}
 .k h4{margin:0;font-size:1.05rem}.k .m{font-size:.8rem;color:var(--mut)}
 .sz{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 10px}
 .sz span{background:var(--soft);border-radius:10px;padding:4px 9px;font-size:.8rem}
-.st{font-size:.85rem;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.st{font-size:.85rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}.acts{display:flex;gap:6px;align-items:center}.wa{font-size:.78rem;background:#25a35a;color:#fff;border-radius:99px;padding:4px 11px;text-decoration:none;white-space:nowrap}
 .badge{font-weight:600}.P .badge{color:var(--red)}.A .badge{color:var(--grn)}.E .badge{color:var(--gold)}
 .cp{font:inherit;font-size:.78rem;border:1px solid var(--bd);background:var(--soft);color:var(--ink);border-radius:99px;padding:4px 10px;cursor:pointer}
 .all{font:inherit;border:0;background:var(--red);color:#fff;border-radius:99px;padding:8px 16px;cursor:pointer;margin-left:auto}
@@ -74,11 +74,11 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 16px}
 </section>
 
 <h3 class="sec">As crianças</h3>
-<div class="sm">Toque em “Copiar ficha” para enviar os tamanhos a quem quiser apadrinhar.</div>
+<div class="sm">Toque em “WhatsApp” para avisar os organizadores que você quer apadrinhar uma criança, ou em “Copiar ficha” para enviar os tamanhos a alguém.</div>
 <div class="bar">
 <button data-f="" class="on">Todas</button><button data-f="P">Faltam apadrinhar</button><button data-f="A">Apadrinhadas</button>
+<button data-g="Menina">Meninas</button><button data-g="Menino">Meninos</button>
 <input id="q" type="search" placeholder="Buscar por nome…">
-<button class="all" id="all">Copiar lista de quem falta</button>
 </div>
 <div class="grid" id="grid"></div>
 </main>
@@ -90,11 +90,11 @@ var META=1000, ARRECADADO=0;
 // ===== Dados (g|nome|idade|roupa|calça|calçado|padrinho|status|lar) status: P=pendente A=apadrinhado E=entregue =====
 var R=("Menina|Alice E.|3 anos|8|-|26|Juliana|A|Lar 1;Menina|Alice V.|5 anos|8|-|28|Pedro|A|Lar 1;Menina|Emanuela|12 anos|G|42|38|Saulo|A|Lar 1;Menina|Ketily|12 anos|M|36|36|Bias|A|Lar 1;Menina|Lais|13 anos|M|36|37|Rodrigues|A|Lar 1;Menina|Lillyan|11 anos|16|-|37|Viviane e Felipe|A|Lar 1;Menina|Maisa|16 anos|G2|48|39|Gilssara|A|Lar 1;Menina|Mariah|2 anos|4|-|22|Mariana|A|Lar 1;Menina|Yasmin|1 ano|3|-|20|Ana Paula|A|Lar 1;Menino|Davi|13 anos|M|16|39|Vinicius e Aline|A|Lar 1;Menino|Isaac|10 meses|2|-|18|Maria Victória|A|Lar 1;Menino|Kalebe|3 anos|6|-|24|Vera|A|Lar 1;Menino|Luiz|9 anos|12|-|35|Géssika|A|Lar 1;Menino|Miguel|12 anos|M|16|40|Amélia|A|Lar 1;Menino|Pedro|4 anos|8|-|26|Juliana|A|Lar 1;Menino|Tairony|15 anos|G|44|40|Ione|A|Lar 1;"+
 "Menino|Anthony|2 meses|6 meses|-|20||P|Lar 3;Menina|Agata|7 anos|8|-|28||P|Lar 3;Menina|Ana Julia|9 anos|10|-|30||P|Lar 3;Menina|Clara|2 anos|3|-|23||P|Lar 3;Menina|Helena|5 anos|8|-|26||P|Lar 3;Menino|Taylor|9 anos|8|-|28||P|Lar 3;Menina|Tayla|6 anos|6|-|25||P|Lar 3;Menina|Marcella|8 anos|12|-|34|Cleide|A|Lar 3;Menina|Manuella|8 anos|12|-|35|Cleide|A|Lar 3;Menino|Derick|13 anos|M|-|40||P|Lar 3;Menino|Raphael|11 anos|P|-|36||P|Lar 3;Menino|Henzo|9 anos|14|-|34||P|Lar 3;Menina|Maria Helena|7 anos|6|-|28||P|Lar 3;Menina|Isis|4 anos|4|-|25||P|Lar 3;Menina|Isabelle|5 anos|6|-|27||P|Lar 3;Menina|Maria Eduarda|7 anos|10|-|32||P|Lar 3;Menina|Natália|10 anos|12|-|33||P|Lar 3").split(";").map(function(s){var a=s.split("|");return{g:a[0],n:a[1],age:a[2],sh:a[3],pa:a[4],sp:a[5],d:a[6],s:a[7],l:a[8]}});
-var ST={P:"Procurando padrinho",A:"Apadrinhada",E:"Entregue"},F="";
+var ST={P:"Procurando padrinho",A:"Apadrinhada",E:"Entregue"},F="",G="";
 function $(i){return document.getElementById(i)}
 function brl(v){return"R$ "+v.toLocaleString("pt-BR",{minimumFractionDigits:0,maximumFractionDigits:2})}
 function n(f){return R.filter(f).length}
-function ficha(c){return c.n+" ("+c.g.toLowerCase()+", "+c.age+") – roupa: "+c.sh+(c.pa!=="-"?" | calça: "+c.pa:"")+" | calçado: "+c.sp}
+var WHATS="";function wa(c){return"https://wa.me/"+WHATS+"?text="+encodeURIComponent("Olá! Quero apadrinhar "+c.n+" ("+c.age+") no Natal do SAICA. Roupa: "+c.sh+(c.pa!=="-"?", calça: "+c.pa:"")+", calçado: "+c.sp+". Como faço?")}function ficha(c){return c.n+" ("+c.g.toLowerCase()+", "+c.age+") – roupa: "+c.sh+(c.pa!=="-"?" | calça: "+c.pa:"")+" | calçado: "+c.sp}
 function resumo(){
 var t=R.length,p=n(function(c){return c.s==="P"}),done=t-p,pc=Math.round(done/t*100);
 $("sf").textContent=p;$("sa").textContent=done;$("pct").textContent=pc+"%";$("ap").textContent=done+" de "+t+" crianças";
@@ -107,20 +107,20 @@ $("sr").textContent=brl(Math.max(0,META-ARRECADADO));setTimeout(function(){$("b1
 var d=Math.round((new Date(2026,11,5)-new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate()))/864e5);
 if(d>1){$("dias").textContent=d}else if(d===1){$("dias").textContent="1";$("diasl").textContent="dia para o evento"}else if(d===0){$("dias").textContent="Hoje!";$("diasl").textContent="é o grande dia"}else{$("dias").textContent="💚";$("diasl").textContent="obrigada a todos"}
 }
-function list(){var q=$("q").value.toLowerCase();return R.filter(function(c){return(!F||c.s===F)&&(!q||c.n.toLowerCase().indexOf(q)>-1)})}
+function list(){var q=$("q").value.toLowerCase();return R.filter(function(c){return(!F||c.s===F)&&(!G||c.g===G)&&(!q||c.n.toLowerCase().indexOf(q)>-1)})}
 function render(){var L=list();
 $("grid").innerHTML=L.length?L.map(function(c,i){var k=c.s;
 return'<div class="k '+k+'"><div class="top"><div class="av">'+c.n.charAt(0)+'</div><div><h4>'+c.n+'</h4><div class="m">'+c.g+' · '+c.age+' · '+c.l+'</div></div></div>'+
 '<div class="sz"><span>👕 '+c.sh+'</span>'+(c.pa!=="-"?'<span>👖 '+c.pa+'</span>':'')+'<span>👟 '+c.sp+'</span></div>'+
-'<div class="st"><span class="badge">'+(k==="P"?"🎁 ":"💚 ")+ST[k]+(c.d?" · "+c.d:"")+'</span>'+(k==="P"?'<button class="cp" data-i="'+R.indexOf(c)+'">Copiar ficha</button>':'')+'</div></div>'}).join(""):'<div class="empty">Nenhuma criança encontrada.</div>'}
+'<div class="st"><span class="badge">'+(k==="P"?"🎁 ":"💚 ")+ST[k]+(c.d?" · "+c.d:"")+'</span>'+(k==="P"?'<span class="acts"><button class="cp" data-i="'+R.indexOf(c)+'">Copiar ficha</button><a class="wa" target="_blank" rel="noopener" href="'+wa(c)+'">💬 WhatsApp</a></span>':'')+'</div></div>'}).join(""):'<div class="empty">Nenhuma criança encontrada.</div>'}
 function copy(t,b){var o=b.textContent;function ok(){b.textContent="✓ Copiado";setTimeout(function(){b.textContent=o},1200)}
 function fb(){var x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(x)}
 try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}}
 document.querySelectorAll(".bar button[data-f]").forEach(function(b){b.addEventListener("click",function(){F=b.getAttribute("data-f");document.querySelectorAll(".bar button[data-f]").forEach(function(x){x.classList.toggle("on",x===b)});render()})});
 $("q").addEventListener("input",render);
 $("grid").addEventListener("click",function(e){var i=e.target.getAttribute("data-i");if(i!==null)copy("Olá! Esta criança do SAICA ainda precisa de padrinho para o Natal: "+ficha(R[i]),e.target)});
-$("all").addEventListener("click",function(){var p=R.filter(function(c){return c.s==="P"});copy("Crianças do SAICA que ainda precisam de padrinho ("+p.length+"):\n"+p.map(function(c){return"• "+ficha(c)}).join("\n"),$("all"))});
-resumo();render();
+if($("all"))$("all").addEventListener("click",function(){var p=R.filter(function(c){return c.s==="P"});copy("Crianças do SAICA que ainda precisam de padrinho ("+p.length+"):\n"+p.map(function(c){return"• "+ficha(c)}).join("\n"),$("all"))});
+document.querySelectorAll(".bar button[data-g]").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-g");G=(G===v)?"":v;document.querySelectorAll(".bar button[data-g]").forEach(function(x){x.classList.toggle("on",G!==""&&x===b)});render()})});resumo();render();
 </script>
 </body>
 </html>

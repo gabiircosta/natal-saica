@@ -95,7 +95,7 @@ function $(i){return document.getElementById(i)}
 function brl(v){return"R$ "+v.toLocaleString("pt-BR",{minimumFractionDigits:0,maximumFractionDigits:2})}
 function n(f){return R.filter(f).length}
 function ficha(c){return c.n+" ("+c.g.toLowerCase()+", "+c.age+") – roupa: "+c.sh+(c.pa!=="-"?" | calça: "+c.pa:"")+" | calçado: "+c.sp}
-function top(){
+function resumo(){
 var t=R.length,p=n(function(c){return c.s==="P"}),done=t-p,pc=Math.round(done/t*100);
 $("sf").textContent=p;$("sa").textContent=done;$("pct").textContent=pc+"%";$("ap").textContent=done+" de "+t+" crianças";
 $("falta").textContent=p?"Faltam "+p+" crianças para ganhar padrinho.":"Todas as crianças têm padrinho! 🎉";
@@ -120,7 +120,7 @@ document.querySelectorAll(".bar button[data-f]").forEach(function(b){b.addEventL
 $("q").addEventListener("input",render);
 $("grid").addEventListener("click",function(e){var i=e.target.getAttribute("data-i");if(i!==null)copy("Olá! Esta criança do SAICA ainda precisa de padrinho para o Natal: "+ficha(R[i]),e.target)});
 $("all").addEventListener("click",function(){var p=R.filter(function(c){return c.s==="P"});copy("Crianças do SAICA que ainda precisam de padrinho ("+p.length+"):\n"+p.map(function(c){return"• "+ficha(c)}).join("\n"),$("all"))});
-top();render();
+resumo();render();
 </script>
 </body>
 </html>

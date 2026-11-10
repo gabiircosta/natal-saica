@@ -50,6 +50,7 @@ h3.sec{font-family:Georgia,serif;font-size:1.5rem;margin:30px 0 4px}
 .all{font:inherit;border:0;background:var(--red);color:#fff;border-radius:99px;padding:8px 16px;cursor:pointer;margin-left:auto}
 .don{display:block;text-align:center;margin-top:14px;background:#25a35a;color:#fff;text-decoration:none;font-weight:600;padding:11px 16px;border-radius:99px}.tr{margin-top:30px;background:var(--card);border:1px dashed var(--bd);border-radius:18px;padding:6px 20px 20px;text-align:center}.tr h3.sec{margin-top:14px}.tr p{margin:0;color:var(--mut)}.vs{font-family:Georgia,serif;font-size:1.05rem;font-style:italic;color:var(--ink);max-width:560px;margin:0 auto 16px}.vs cite{display:block;font-style:normal;font-size:.85rem;color:var(--mut);margin-top:6px}
 .pad{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:4px 20px 20px;margin-top:26px}.pad h3.sec{margin-top:16px}.pad input{font:inherit;width:100%;margin-top:12px;border:2px solid var(--grn);background:var(--card);color:var(--ink);border-radius:99px;padding:12px 18px}#pmsg{margin-top:8px;font-weight:600;color:var(--grn)}
+.md{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}.md.on{display:flex}.mb{background:var(--card);border-radius:20px;padding:22px;max-width:420px;width:100%}.mb h3{font-family:Georgia,serif;margin:0 0 6px}.mb input,.mb textarea{font:inherit;width:100%;margin-top:10px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px}.mb textarea{min-height:70px;resize:vertical}.mb .pr{display:block;width:100%;margin-top:14px;border:0;border-radius:99px;background:var(--grn);color:#fff;font:inherit;font-weight:600;padding:11px;cursor:pointer}.mb .pr:disabled{opacity:.6}.mb .gh{background:none;border:0;color:var(--mut);font:inherit;cursor:pointer;display:block;margin:8px auto 0}#me{color:var(--red);font-size:.85rem;margin-top:8px}button.wa{border:0;cursor:pointer;font-family:inherit}
 .empty{text-align:center;color:var(--mut);padding:30px;grid-column:1/-1}
 footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 16px}
 @media(max-width:620px){.goals{grid-template-columns:1fr}}
@@ -76,7 +77,7 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 16px}
 </section>
 
 <section class="pad"><h3 class="sec">💚 Já é padrinho ou madrinha?</h3><div class="sm">Digite seu nome para encontrar a sua criança e ver os tamanhos.</div><input id="pq" type="search" placeholder="Digite seu nome" autocomplete="off"><div class="sm" id="pmsg"></div></section><h3 class="sec">As crianças</h3>
-<div class="sm">Toque em “WhatsApp” para avisar os organizadores que você quer apadrinhar uma criança, ou em “Copiar ficha” para enviar os tamanhos a alguém.</div>
+<div class="sm">Toque em “Quero apadrinhar” para escolher uma criança, ou em “Copiar ficha” para enviar os tamanhos a alguém.</div>
 <div class="bar">
 <button data-f="" class="on">Todas</button><button data-f="P">Faltam apadrinhar</button><button data-f="A">Apadrinhadas</button>
 <button data-g="Menina">Meninas</button><button data-g="Menino">Meninos</button>
@@ -84,7 +85,7 @@ footer{text-align:center;color:var(--mut);font-size:.85rem;padding:30px 16px}
 </div>
 <div class="grid" id="grid"></div>
 <section class="tr"><h3 class="sec">📸 Transparência</h3><p>Aqui, logo após o evento, teremos as fotos da tarde com as crianças e todas as notas fiscais relacionadas aos custos, para você acompanhar para onde foi cada doação.</p></section></main>
-<footer><blockquote class="vs">“E nós conhecemos e cremos no amor que Deus nos tem. Deus é amor, e quem permanece no amor permanece em Deus, e Deus, nele.”<cite>1 João 4:16</cite></blockquote>Feito com carinho 💚 · Cada gesto faz diferença</footer>
+<div class="md" id="md"><div class="mb"><div id="mf"><h3 id="mt"></h3><div class="sm">Seu nome vai ser registrado na planilha dos organizadores.</div><input id="mn" placeholder="Seu nome completo" autocomplete="name"><textarea id="mo" placeholder="Observação (opcional)"></textarea><div id="me"></div><button class="pr" id="ms">Confirmar apadrinhamento</button><button class="gh" id="mc">Cancelar</button></div><div id="mok" style="display:none;text-align:center"><h3 id="mkt"></h3><div class="sm">Já registramos na planilha. Anote os tamanhos para a compra.</div><button class="pr" id="mkc">Copiar ficha</button><button class="gh" id="mx">Fechar</button></div></div></div><footer><blockquote class="vs">“E nós conhecemos e cremos no amor que Deus nos tem. Deus é amor, e quem permanece no amor permanece em Deus, e Deus, nele.”<cite>1 João 4:16</cite></blockquote>Feito com carinho 💚 · Cada gesto faz diferença</footer>
 
 <script>
 // ===== Edite aqui: valores da arrecadação =====
@@ -114,7 +115,7 @@ function render(){var L=list();$("pmsg").textContent=PQ?(L.length?L.length+(L.le
 $("grid").innerHTML=L.length?L.map(function(c,i){var k=c.s;
 return'<div class="k '+k+'"><div class="top"><div class="av">'+c.n.charAt(0)+'</div><div><h4>'+c.n+'</h4><div class="m">'+c.g+' · '+c.age+' · '+c.l+'</div></div></div>'+
 '<div class="sz"><span>👕 '+c.sh+'</span>'+(c.pa!=="-"?'<span>👖 '+c.pa+'</span>':'')+'<span>👟 '+c.sp+'</span></div>'+
-'<div class="st"><span class="badge">'+(k==="P"?"🎁 ":"💚 ")+ST[k]+(c.d?" · "+c.d:"")+'</span>'+'<span class="acts"><button class="cp" data-i="'+R.indexOf(c)+'">Copiar ficha</button>'+(k==="P"?'<a class="wa" target="_blank" rel="noopener" href="'+wa(c)+'">💬 WhatsApp</a>':'')+'</span>'+'</div></div>'}).join(""):'<div class="empty">Nenhuma criança encontrada.</div>'}
+'<div class="st"><span class="badge">'+(k==="P"?"🎁 ":"💚 ")+ST[k]+(c.d?" · "+c.d:"")+'</span>'+'<span class="acts"><button class="cp" data-i="'+R.indexOf(c)+'">Copiar ficha</button>'+(k==="P"?'<button class="wa" data-a="'+R.indexOf(c)+'">🎁 Quero apadrinhar</button>':'')+'</span>'+'</div></div>'}).join(""):'<div class="empty">Nenhuma criança encontrada.</div>'}
 function copy(t,b){var o=b.textContent;function ok(){b.textContent="✓ Copiado";setTimeout(function(){b.textContent=o},1200)}
 function fb(){var x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(x)}
 try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}}
@@ -122,7 +123,15 @@ document.querySelectorAll(".bar button[data-f]").forEach(function(b){b.addEventL
 $("q").addEventListener("input",render);
 $("grid").addEventListener("click",function(e){var i=e.target.getAttribute("data-i");if(i!==null)copy((R[i].s==="P"?"Olá! Esta criança do SAICA ainda precisa de padrinho para o Natal: ":"Ficha da criança apadrinhada no Natal do SAICA: ")+ficha(R[i]),e.target)});
 if($("all"))$("all").addEventListener("click",function(){var p=R.filter(function(c){return c.s==="P"});copy("Crianças do SAICA que ainda precisam de padrinho ("+p.length+"):\n"+p.map(function(c){return"• "+ficha(c)}).join("\n"),$("all"))});
-document.querySelectorAll(".bar button[data-g]").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-g");G=(G===v)?"":v;document.querySelectorAll(".bar button[data-g]").forEach(function(x){x.classList.toggle("on",G!==""&&x===b)});render()})});$("don").href="https://wa.me/"+WHATS+"?text="+encodeURIComponent("Olá! Quero contribuir com uma doação em dinheiro para o Natal das crianças do SAICA. Como faço?");$("pq").addEventListener("input",function(){PQ=norm(this.value.trim());render()});resumo();render();
+document.querySelectorAll(".bar button[data-g]").forEach(function(b){b.addEventListener("click",function(){var v=b.getAttribute("data-g");G=(G===v)?"":v;document.querySelectorAll(".bar button[data-g]").forEach(function(x){x.classList.toggle("on",G!==""&&x===b)});render()})});$("don").href="https://wa.me/"+WHATS+"?text="+encodeURIComponent("Olá! Quero contribuir com uma doação em dinheiro para o Natal das crianças do SAICA. Como faço?");$("pq").addEventListener("input",function(){PQ=norm(this.value.trim());render()});var APPS="https://script.google.com/macros/s/AKfycbzokghXtxRIP9brkvemmvE1rYLjbLFvw6pdHEL6ML4i11UsBJ0r2J02a2-w4mzbgFoN/exec";var cur=-1;
+function openAdopt(i){var c=R[i];if(!APPS){window.open(wa(c),"_blank");return}cur=i;$("mt").textContent="Apadrinhar "+c.n;$("me").textContent="";$("mn").value="";$("mo").value="";$("mf").style.display="";$("mok").style.display="none";$("md").classList.add("on");$("mn").focus()}
+function closeM(){$("md").classList.remove("on")}
+function sendAdopt(){var c=R[cur],nome=$("mn").value.trim(),b=$("ms");if(nome.length<3){$("me").textContent="Digite seu nome completo.";return}b.disabled=true;b.textContent="Enviando…";$("me").textContent="";
+fetch(APPS,{method:"POST",body:JSON.stringify({row:c.row,nome:nome,obs:$("mo").value.trim(),crianca:c.n})}).then(function(r){return r.json()}).then(function(d){b.disabled=false;b.textContent="Confirmar apadrinhamento";if(d.ok){c.s="A";c.d=d.donor||nome;resumo();render();$("mf").style.display="none";$("mok").style.display="";$("mkt").textContent="Obrigada, "+nome.split(" ")[0]+"! 💚 "+c.n+" agora é sua criança.";$("mkc").onclick=function(){copy("Ficha da criança apadrinhada no Natal do SAICA: "+ficha(c),this)}}else{$("me").textContent=d.msg||"Não foi possível salvar.";if(d.taken){c.s="A";resumo();render()}}}).catch(function(){b.disabled=false;b.textContent="Confirmar apadrinhamento";$("me").textContent="Sem conexão. Tente de novo em instantes."})}
+$("grid").addEventListener("click",function(e){var a=e.target.getAttribute("data-a");if(a!==null)openAdopt(+a)});
+$("mc").onclick=closeM;$("mx").onclick=closeM;$("ms").onclick=sendAdopt;
+function boot(){resumo();render()}
+if(APPS){fetch(APPS,{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){if(d&&d.length)R=d;boot()}).catch(boot)}else{boot()}
 </script>
 </body>
 </html>
